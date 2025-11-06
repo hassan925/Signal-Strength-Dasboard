@@ -2,7 +2,6 @@
 import streamlit as st
 import pandas as pd
 import folium
-from folium.plugins import HeatMap
 from streamlit_folium import st_folium
 
 st.title("Signal Strength Map Dashboard")
@@ -41,10 +40,7 @@ for _, row in data.iterrows():
             tooltip=f"Signal Quality: {row['Signal Quality']}"
         ).add_to(m)
 
-# Optional: Add heatmap for all points
-heat_data = [[row['Y'], row['X']] for _, row in data.iterrows()]
-HeatMap(heat_data).add_to(m)
-
 # Display the map
 
 st_folium(m, width=700, height=500)
+
