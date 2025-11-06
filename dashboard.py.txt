@@ -1,0 +1,49 @@
+# dashboard.py
+import streamlit as st
+import pandas as pd
+import folium
+from folium.plugins import HeatMap
+from streamlit_folium import st_folium
+
+st.title("Signal Strength Map Dashboard")
+
+# Load data from CSV URL
+url = "YOUR_CSV_URL_HERE"  # Replace with the URL of your CSV
+data = pd.read_csv(url)
+
+# Optional: show raw data
+if st.checkbox("Show Raw Data"):
+    st.write(data)
+
+# Folium map centered at mean coordinates
+m = folium.Map(location=[data['Y'].mean(), data['X'].mean()], zoom_start=12)
+
+# Color mapping for Signal Quality
+color_map = {'Bad': 'red', 'Moderate': 'orange', 'Good': 'yellow', 'Great': 'green'}
+
+# Optional: interactive checkbox filters for signal quality
+selected_quality = st.multiselect(
+    "Select Signal Quality to Display:",
+    options=list(color_map.keys()),
+    default=list(color_map.keys())
+)
+
+# Add CircleMarkers for each row, filtered by selected_quality
+for _, row in data.iterrows():
+    if row['Signal Quality'] in selected_quality:
+        folium.CircleMarker(
+            location=[row['Y'], row['X']],
+            radius=3,
+            color=color_map.get(row['Signal Quality'], 'gray'),
+            fill=True,
+            fill_color=color_map.get(row['Signal Quality'], 'gray'),
+            fill_opacity=0.6,
+            tooltip=f"Signal Quality: {row['Signal Quality']}"
+        ).add_to(m)
+
+# Optional: Add heatmap for all points
+heat_data = [[row['Y'], row['X']] for _, row in data.iterrows()]
+HeatMap(heat_data).add_to(m)
+
+# Display the map
+st_folium(m, width=700, height=500)
