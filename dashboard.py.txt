@@ -8,7 +8,7 @@ from streamlit_folium import st_folium
 st.title("Signal Strength Map Dashboard")
 
 # Load data from CSV URL
-url = "YOUR_CSV_URL_HERE"  # Replace with the URL of your CSV
+url = "https://raw.githubusercontent.com/hassan925/Signal-Strength-Dasboard/refs/heads/main/Signal%20Strength%20Data.csv"
 data = pd.read_csv(url)
 
 # Optional: show raw data
@@ -46,4 +46,5 @@ heat_data = [[row['Y'], row['X']] for _, row in data.iterrows()]
 HeatMap(heat_data).add_to(m)
 
 # Display the map
+
 st_folium(m, width=700, height=500)
