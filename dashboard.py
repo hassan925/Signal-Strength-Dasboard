@@ -78,6 +78,7 @@ legend_html = f"""
 m.get_root().html.add_child(folium.Element(legend_html))
 
 # Show map in Streamlit
-st_folium(m, width=850, height=600)
+st_folium(m, width=1550, height=600)
+
 
 
