@@ -28,11 +28,11 @@ m = folium.Map(
 # Monotone color scale for quality
 # You can change the base color (blue scale used here)
 quality_shades = {
-    "Bad": "#a6c8ff",        # light blue
-    "Moderate": "#6ba8ff",   # medium blue
-    "Good": "#2c7dfc",       # dark blue
-    "Great": "#004bb7",      # darkest blue
-    "No Coverage": "#bfbfbf" # grey
+    "Bad": "red",
+    "Moderate": "orange",
+    "Good": "blue",
+    "Great": "green",
+    "No Coverage": "grey"
 }
 
 # Add markers
@@ -68,15 +68,16 @@ legend_html = f"""
          font-size:14px;
          padding: 10px;">
      <b>{selected_network} Coverage</b><br>
-     <i style="background:{quality_shades['Bad']}; width:15px; height:15px; float:left; margin-right:5px;"></i> Bad<br>
-     <i style="background:{quality_shades['Moderate']}; width:15px; height:15px; float:left; margin-right:5px;"></i> Moderate<br>
-     <i style="background:{quality_shades['Good']}; width:15px; height:15px; float:left; margin-right:5px;"></i> Good<br>
-     <i style="background:{quality_shades['Great']}; width:15px; height:15px; float:left; margin-right:5px;"></i> Great<br>
-     <i style="background:{quality_shades['No Coverage']}; width:15px; height:15px; float:left; margin-right:5px;"></i> No Coverage<br>
+        <i style="background:red; width:15px; height:15px; float:left; margin-right:5px;"></i> Bad<br>
+        <i style="background:orange; width:15px; height:15px; float:left; margin-right:5px;"></i> Moderate<br>
+        <i style="background:blue; width:15px; height:15px; float:left; margin-right:5px;"></i> Good<br>
+        <i style="background:green; width:15px; height:15px; float:left; margin-right:5px;"></i> Great<br>
+        <i style="background:grey; width:15px; height:15px; float:left; margin-right:5px;"></i> No Coverage<br>
      </div>
 """
 m.get_root().html.add_child(folium.Element(legend_html))
 
 # Show map in Streamlit
 st_folium(m, width=850, height=600)
+
 
