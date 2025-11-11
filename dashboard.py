@@ -8,6 +8,7 @@ st.title("Network Coverage Quality Map")
 # Load data from CSV URL
 url = "https://raw.githubusercontent.com/hassan925/Signal-Strength-Dasboard/refs/heads/main/Signal%20Strength%20Data.csv"
 data = pd.read_csv(url)
+data.columns = data.columns.str.strip()  # remove extra spaces
 
 # Dropdown filter
 selected_network = st.selectbox(
@@ -78,3 +79,4 @@ m.get_root().html.add_child(folium.Element(legend_html))
 
 # Show map in Streamlit
 st_folium(m, width=850, height=600)
+
